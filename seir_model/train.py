@@ -3,7 +3,6 @@ import time
 import numpy as np
 from tqdm import tqdm
 import jax
-jax.default_device = jax.devices("gpu")[1]
 import jax.numpy as jnp
 from jax import random
 import optax
@@ -193,6 +192,33 @@ logging.info(f'd = {d}')
 logging.info(f'd_pred = {d_pred}')
 logging.info(f'diff norm = {diff_norm}')
 
+m0 =np.random.uniform(size=6)
+m = [0.4, 0.3, 0.3, 0.1, 0.15, 0.6]
+e = np.linspace(1,3,4)
+d = d_by_m_e(m ,e).flatten()
+m0 = jnp.array(m0).reshape(1,-1)
+m = jnp.array(m).reshape(1,-1)
+e = jnp.array(e).reshape(1,-1)
+d = jnp.array(d).reshape(1,-1)
+dim = m[0].shape[0] + e[0].shape[0] + d[0].shape[0]
+print(dim)
+
+def ode_function(t, m, d, e):
+    m = m.reshape(1, -1)
+    t = jnp.array(t).reshape(1,-1)
+    inputs = jnp.concatenate([m, d, e, t], axis=1)
+    return predict(params, inputs)[0]
+
+
+solution = solve_ivp(ode_function, t_span=[0, 1], y0=m0[0], t_eval=None, args=(d, e))
+d_pred = d_by_m_e(solution.y[:, -1],e[0]).flatten()
+diff_norm = jnp.linalg.norm(d - d_pred) / jnp.linalg.norm(d)
+
+print(f'm_pred = {solution.y[:, -1]}')
+print(f'd = {d}')
+print(f'd_pred = {d_pred}')
+print(f'diff norm = {diff_norm}')
+
 errors = []
 sols = []
 
@@ -226,5 +252,3 @@ plt.savefig(f'{savedir}/seir_25p.png')
 plt.show()
 
 print(np.mean(errors), np.std(errors))
-logging.info(np.mean(errors), np.std(errors))
-logging.info(f'd err: {np.mean(d_err)}, {np.std(d_err)}')

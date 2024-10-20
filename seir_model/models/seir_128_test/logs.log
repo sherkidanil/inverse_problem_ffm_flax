@@ -11,3 +11,30 @@
 2024-10-20 12:54:05,989 - d_pred = [  13.25405801   75.75575653  174.16747678  200.22490964   -4.07819455
   -45.15587    -127.00477311 -140.4522135 ]
 2024-10-20 12:54:05,989 - diff norm = 8.420211791992188
+2024-10-20 15:00:00,172 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-20 15:00:00,174 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-20 15:00:00,191 - gpu
+2024-10-20 15:00:17,576 - m_pred = [ 0.78774992 -0.1961934  -0.15988361 -0.55162894  2.5143067   0.50686684]
+2024-10-20 15:00:17,577 - d = [[ 1.4814678  10.1681795  21.746716   24.874071    0.05899492  0.54789436
+   4.5900397  14.810197  ]]
+2024-10-20 15:00:17,577 - d_pred = [-0.5293592  -2.17490507 -0.13617105 -0.66592321  0.23272443  1.20474138
+  3.11812616  2.78619484]
+2024-10-20 15:00:17,577 - diff norm = 0.9988909959793091
+2024-10-20 15:02:07,596 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-20 15:02:07,598 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-20 15:02:07,616 - gpu
+2024-10-20 15:02:25,338 - m_pred = [ 1.29525563  0.26300096 -1.00505229 -0.68744195  1.86287159  0.06333682]
+2024-10-20 15:02:25,339 - d = [[ 1.4814678  10.1681795  21.746716   24.874071    0.05899492  0.54789436
+   4.5900397  14.810197  ]]
+2024-10-20 15:02:25,339 - d_pred = [   8.35221173   65.26962839  241.2735174   599.26072355   -3.30379606
+  -45.33197755 -208.45997666 -555.64203621]
+2024-10-20 15:02:25,339 - diff norm = 22.90072250366211
+2024-10-20 15:03:31,343 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-20 15:03:31,346 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-20 15:03:31,363 - gpu
+2024-10-20 15:03:48,865 - m_pred = [ 1.79358687 -0.47876271 -1.20179844 -0.42934524  3.00424133  1.10070302]
+2024-10-20 15:03:48,866 - d = [[ 1.4814678  10.1681795  21.746716   24.874071    0.05899492  0.54789436
+   4.5900397  14.810197  ]]
+2024-10-20 15:03:48,867 - d_pred = [-0.25087202  0.07873177  0.64455456 -0.37713009  0.00329468 -0.20584515
+  0.09996337  0.029294  ]
+2024-10-20 15:03:48,867 - diff norm = 0.996164083480835

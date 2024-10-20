@@ -18,8 +18,10 @@ $$ d(e,m) = e^2 m^3 + m \exp (-\vert 0.2 -e \vert) + \eta $$
 simple model
 |
 |---- models/
+|---- generate_dataset.py
 |---- understanding_result.ipynb
 |---- train.py 
+|---- train._with_dataset.py 
 ```
 
 $$ \frac{dS}{dt} = -\beta(t)SI, \frac{dE}{dt} = \beta(t) S I - \alpha E$$
