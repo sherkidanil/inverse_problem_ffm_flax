@@ -29,4 +29,8 @@
 2024-10-20 19:38:27,216 - diff norm = 0.9999268651008606
 2024-10-20 19:39:34,112 - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
 2024-10-20 19:39:34,112 - NumExpr defaulting to 8 threads.
-1.0000308 0.00043759806
+1.0000308 0.000437598062024-10-20 19:45:38,807 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-20 19:45:38,810 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-20 19:45:38,827 - gpu
+2024-10-20 19:46:01,215 - 1000: loss 0.145 time 15.20
+2024-10-20 19:46:10,648 - 2000: loss 0.135 time 24.63

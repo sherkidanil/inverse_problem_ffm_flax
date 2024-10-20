@@ -132,8 +132,8 @@ for k in tqdm(range(num_epochs)):
 
     x0 = jax.random.uniform(subkey, (batch_size, 6))
     x1 = batch[:, :6]
-    d = batch[:, 6:10]
-    e = batch[:, 10:]
+    d = batch[:, 10:]
+    e = batch[:, 6:10]
 
     loss, grads = jax.value_and_grad(loss_ffm_function, has_aux=False)(state.params, x1, x0, d, e, subkey)
     state = update_model(state, grads)
