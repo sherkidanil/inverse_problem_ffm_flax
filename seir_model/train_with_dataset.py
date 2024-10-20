@@ -42,7 +42,7 @@ def d_by_m_e(m: List[int], e: List[int]):
     return solution.y[2:]
 
 
-savedir = "models/seir_4p_ds_without_noise"
+savedir = "models/seir_4p_ds_with_noise"
 datedir = "data/seir_data"
 
 os.makedirs(savedir, exist_ok=True)
@@ -83,8 +83,8 @@ def predict(params, inputs):
 def sample_conditional_pt(x0, x1, t, sigma):
     t = t.reshape(-1, *([1] * (x0.ndim - 1)))
     mu_t = t * x1 + (1 - t) * x0
-    # epsilon = jax.random.normal(jax.random.PRNGKey(0), x0.shape)
-    epsilon = 0
+    epsilon = jax.random.normal(key, x0.shape)
+    # epsilon = 0
     return mu_t + sigma * epsilon
 
 @jax.jit
