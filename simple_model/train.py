@@ -13,7 +13,7 @@ import pickle
 from scipy.integrate import solve_ivp
 
 
-savedir = "models/simple_64_another_2"
+savedir = "models/simple_64_another_2_without_noise"
 os.makedirs(savedir, exist_ok=True)
 
 import logging
@@ -46,7 +46,8 @@ def predict(params, inputs):
 def sample_conditional_pt(x0, x1, t, sigma):
     t = t.reshape(-1, *([1] * (x0.ndim - 1)))
     mu_t = t * x1 + (1 - t) * x0
-    epsilon = jax.random.normal(key, x0.shape)
+    # epsilon = jax.random.normal(key, x0.shape)
+    epsilon = 0
     return mu_t + sigma * epsilon
 
 @jax.jit

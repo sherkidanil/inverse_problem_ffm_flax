@@ -12,10 +12,37 @@ from flax.training import train_state
 import pickle
 from scipy.integrate import solve_ivp
 
-from generate_dataset import d_by_m_e
+from typing import List
+
+def d_by_m_e(m: List[int], e: List[int]):
+    beta1, alpha, gamma_r, gamma_d1, beta2, gamma_d2 = m
+    tau = 2.1
+    
+    def beta(t):
+        return beta1 + 0.5 * np.tanh(7 * (t - tau)) * (beta2 - beta1)
+
+    def gamma_d(t):
+        return gamma_d1 + 0.5 * np.tanh(7 * (t - tau)) * (gamma_d2 - gamma_d1)
+
+    def gamma(t):
+        return gamma_r + gamma_d(t)
+
+    def seir_model(t, y, beta, alpha, gamma):
+        S, E, I, R = y
+        dSdt = -beta(t) * S * I
+        dEdt = beta(t) * S * I - alpha * E
+        dIdt = alpha * E - gamma(t) * I
+        dRdt = (gamma_r + gamma_d(t)) * I
+        return [dSdt, dEdt, dIdt, dRdt]
+
+    S0, E0, I0, R0 = 99, 1, 0, 0
+    y0 = [S0, E0, I0, R0]
+
+    solution = solve_ivp(seir_model, t_span=[0,4], y0=y0, t_eval=e, args=(beta, alpha, gamma))
+    return solution.y[2:]
 
 
-savedir = "models/seir_4p_ds"
+savedir = "models/seir_4p_ds_without_noise"
 datedir = "data/seir_data"
 
 os.makedirs(savedir, exist_ok=True)
@@ -34,7 +61,7 @@ e = jnp.load(f'{datedir}/e.npy')
 class MLP(nn.Module):
     dim: int
     out_dim: int = 1
-    w: int = 256
+    w: int = 128
 
     @nn.compact
     def __call__(self, x):
@@ -70,7 +97,7 @@ def loss_ffm_function(params, x1, x0, d, e, key):
     ut = compute_conditional_vector_field(x0, x1)
     inputs = jnp.concatenate([xt, d, e, t[:, None]], axis=-1)
     vt = predict(params, inputs)
-    loss = jnp.mean(jnp.power(jnp.linalg.norm((vt - ut)),2))
+    loss = jnp.mean((vt - ut) ** 2)
     return loss
 
 @jax.jit
@@ -80,19 +107,18 @@ def update_model(state, grads):
 
 key = jax.random.PRNGKey(0)
 batch_size = 512
-num_epochs = 20000
+num_epochs = 20_000
 learning_rate = 0.001
 optimizer = optax.adamw(learning_rate=learning_rate)
-params = model.init(key, jnp.ones((1, 4)))
+params = model.init(key, jnp.ones((1, 19)))
 state = train_state.TrainState.create(
     apply_fn=model.apply,
     params=params["params"],
     tx=optimizer
 )
 
-
 # X = jnp.load('data.npy')
-dataset = jnp.array(jnp.stack([m, e, d], axis=1))
+dataset = jnp.concatenate([m, e, d], axis = 1)
 loader = jax.random.permutation(key, dataset)
 
 losses = []
@@ -102,11 +128,11 @@ for k in tqdm(range(num_epochs)):
     key, subkey = jax.random.split(key)
     batch_indices = jax.random.choice(subkey, jnp.arange(len(dataset)), (batch_size,))
     batch = dataset[batch_indices]
-    
-    x0 = jax.random.uniform(subkey, (batch_size, 1))
-    x1 = batch[:, 0].reshape(-1, 1)
-    d = batch[:, 2].reshape(-1, 1)
-    e = batch[:, 1].reshape(-1, 1)
+
+    x0 = jax.random.uniform(subkey, (batch_size, 6))
+    x1 = batch[:, :6]
+    d = batch[:, 6:10]
+    e = batch[:, 10:]
 
     loss, grads = jax.value_and_grad(loss_ffm_function, has_aux=False)(state.params, x1, x0, d, e, subkey)
     state = update_model(state, grads)
@@ -118,9 +144,9 @@ for k in tqdm(range(num_epochs)):
 
 
 # 3. Saving
-np.save("losses.npy", np.array(losses))
+np.save(f"{savedir}/losses.npy", np.array(losses))
 
-with open('w.pkl', 'wb') as f:
+with open(f'{savedir}/w.pkl', 'wb') as f:
     pickle.dump(state.params, f)
 
 # 4. Inference
@@ -170,7 +196,10 @@ for i in tqdm(range(1000)):
     solution = solve_ivp(ode_function, t_span=[0, 1], y0=m0[0], t_eval=None, args=(d, e))
     d_pred = d_by_m_e(solution.y[:, -1],e[0]).flatten()
     sols.append(solution.y[:, -1])
-    errors.append(np.linalg.norm(d - d_pred) / np.linalg.norm(d))
+    try:
+        errors.append(np.linalg.norm(d - d_pred) / np.linalg.norm(d))
+    except ValueError:
+        pass
 
 import pandas as pd
 import seaborn as sns
@@ -183,7 +212,6 @@ plt.figure(dpi=300, figsize=(12,6))
 sns.kdeplot(df, fill=True, alpha=0.5, common_norm=True)
 plt.title(fr'Joint probability distribution $\rho(m|d,e)$', fontsize=16, fontweight='bold')
 plt.xlabel('Parameter value')
-plt.legend(fontsize=12, loc='best')
 plt.xlim(0,1)
 plt.savefig(f'{savedir}/seir_25p.png')
 plt.show()
