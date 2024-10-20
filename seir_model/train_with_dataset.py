@@ -42,7 +42,7 @@ def d_by_m_e(m: List[int], e: List[int]):
     return solution.y[2:]
 
 
-savedir = "models/seir_4p_ds_with_noise"
+savedir = "models/seir_4p_ds_without_noise_2kk"
 datedir = "data/seir_data"
 
 os.makedirs(savedir, exist_ok=True)
@@ -108,9 +108,9 @@ def update_model(state, grads):
 
 key = jax.random.PRNGKey(0)
 batch_size = 128
-num_epochs = 200_000
+num_epochs = 3_000_000
 learning_rate = 0.001
-optimizer = optax.adamw(learning_rate=learning_rate)
+optimizer = optax.lion(learning_rate=learning_rate)
 params = model.init(key, jnp.ones((1, 19)))
 state = train_state.TrainState.create(
     apply_fn=model.apply,
@@ -218,4 +218,4 @@ plt.savefig(f'{savedir}/seir_25p.png')
 plt.show()
 
 print(np.mean(errors), np.std(errors))
-logging.info(np.mean(errors), np.std(errors))
+logging.info(f'{np.mean(errors)}, {np.std(errors)}')
