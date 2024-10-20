@@ -1,0 +1,106 @@
+2024-10-19 22:29:48,133 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:29:48,136 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:29:48,152 - gpu
+2024-10-19 22:31:25,872 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:31:25,874 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:31:25,893 - gpu
+2024-10-19 22:32:30,585 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:32:30,588 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:32:30,606 - gpu
+2024-10-19 22:35:28,895 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:35:28,899 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:35:28,920 - gpu
+2024-10-19 22:38:14,099 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:38:14,101 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:38:14,115 - gpu
+2024-10-19 22:38:44,797 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:38:44,801 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:38:44,819 - gpu
+2024-10-19 22:39:30,266 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:39:30,269 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:39:30,286 - gpu
+2024-10-19 22:41:26,388 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:41:26,392 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:41:26,408 - gpu
+2024-10-19 22:41:44,911 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:41:44,914 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:41:44,932 - gpu
+2024-10-19 22:42:58,543 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:42:58,545 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:42:58,564 - gpu
+2024-10-19 22:44:07,277 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:44:07,279 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:44:07,299 - gpu
+2024-10-19 22:44:54,487 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-19 22:44:54,490 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-19 22:44:54,505 - gpu
+2024-10-19 22:53:33,222 - 1000: loss 0.118 time 514.93
+2024-10-19 23:02:04,379 - 2000: loss 0.136 time 1026.08
+2024-10-19 23:10:35,971 - 3000: loss 0.111 time 1537.68
+2024-10-19 23:19:08,123 - 4000: loss 0.110 time 2049.83
+2024-10-19 23:27:37,570 - 5000: loss 0.109 time 2559.28
+2024-10-19 23:36:10,235 - 6000: loss 0.104 time 3071.94
+2024-10-19 23:44:43,518 - 7000: loss 0.100 time 3585.22
+2024-10-19 23:53:15,712 - 8000: loss 0.091 time 4097.42
+2024-10-20 00:01:49,010 - 9000: loss 0.085 time 4610.72
+2024-10-20 00:10:21,679 - 10000: loss 0.090 time 5123.38
+2024-10-20 00:18:55,266 - 11000: loss 0.072 time 5636.97
+2024-10-20 00:27:28,505 - 12000: loss 0.078 time 6150.21
+2024-10-20 00:36:02,014 - 13000: loss 0.064 time 6663.72
+2024-10-20 00:44:33,353 - 14000: loss 0.070 time 7175.06
+2024-10-20 00:53:06,978 - 15000: loss 0.077 time 7688.68
+2024-10-20 01:01:41,861 - 16000: loss 0.072 time 8203.57
+2024-10-20 01:10:16,933 - 17000: loss 0.077 time 8718.64
+2024-10-20 01:18:54,991 - 18000: loss 0.060 time 9236.70
+2024-10-20 01:27:28,547 - 19000: loss 0.069 time 9750.25
+2024-10-20 01:36:02,029 - 20000: loss 0.071 time 10263.73
+2024-10-20 01:44:40,347 - 21000: loss 0.068 time 10782.05
+2024-10-20 01:53:13,566 - 22000: loss 0.064 time 11295.27
+2024-10-20 02:01:47,730 - 23000: loss 0.067 time 11809.44
+2024-10-20 02:10:17,620 - 24000: loss 0.061 time 12319.33
+2024-10-20 02:18:50,947 - 25000: loss 0.064 time 12832.65
+2024-10-20 02:27:25,078 - 26000: loss 0.065 time 13346.78
+2024-10-20 02:35:58,224 - 27000: loss 0.062 time 13859.93
+2024-10-20 02:44:31,799 - 28000: loss 0.065 time 14373.50
+2024-10-20 02:53:07,009 - 29000: loss 0.065 time 14888.71
+2024-10-20 03:01:37,559 - 30000: loss 0.058 time 15399.26
+2024-10-20 03:10:11,337 - 31000: loss 0.065 time 15913.04
+2024-10-20 03:18:45,528 - 32000: loss 0.067 time 16427.23
+2024-10-20 03:27:21,339 - 33000: loss 0.061 time 16943.04
+2024-10-20 03:35:54,523 - 34000: loss 0.058 time 17456.23
+2024-10-20 03:44:28,136 - 35000: loss 0.060 time 17969.84
+2024-10-20 03:53:02,264 - 36000: loss 0.060 time 18483.97
+2024-10-20 04:01:36,842 - 37000: loss 0.062 time 18998.55
+2024-10-20 04:10:13,382 - 38000: loss 0.059 time 19515.09
+2024-10-20 04:18:48,052 - 39000: loss 0.062 time 20029.76
+2024-10-20 04:27:21,329 - 40000: loss 0.063 time 20543.03
+2024-10-20 04:35:57,028 - 41000: loss 0.054 time 21058.73
+2024-10-20 04:44:33,368 - 42000: loss 0.055 time 21575.07
+2024-10-20 04:53:03,771 - 43000: loss 0.061 time 22085.48
+2024-10-20 05:01:36,687 - 44000: loss 0.056 time 22598.39
+2024-10-20 05:10:12,198 - 45000: loss 0.063 time 23113.90
+2024-10-20 05:18:46,452 - 46000: loss 0.055 time 23628.16
+2024-10-20 05:27:22,372 - 47000: loss 0.061 time 24144.08
+2024-10-20 05:35:59,409 - 48000: loss 0.058 time 24661.11
+2024-10-20 05:44:31,091 - 49000: loss 0.054 time 25172.80
+2024-10-20 05:53:06,623 - 50000: loss 0.052 time 25688.33
+2024-10-20 06:01:40,388 - 51000: loss 0.056 time 26202.09
+2024-10-20 06:10:16,194 - 52000: loss 0.054 time 26717.90
+2024-10-20 06:18:51,601 - 53000: loss 0.058 time 27233.31
+2024-10-20 06:27:23,512 - 54000: loss 0.064 time 27745.22
+2024-10-20 06:35:58,276 - 55000: loss 0.050 time 28259.98
+2024-10-20 06:44:33,759 - 56000: loss 0.059 time 28775.46
+2024-10-20 06:53:06,771 - 57000: loss 0.053 time 29288.48
+2024-10-20 07:01:38,149 - 58000: loss 0.057 time 29799.85
+2024-10-20 07:10:12,713 - 59000: loss 0.053 time 30314.42
+2024-10-20 07:18:49,888 - 60000: loss 0.054 time 30831.59
+2024-10-20 07:27:21,923 - 61000: loss 0.064 time 31343.63
+2024-10-20 07:35:57,773 - 62000: loss 0.059 time 31859.48
+2024-10-20 07:44:29,802 - 63000: loss 0.059 time 32371.51
+2024-10-20 07:53:05,427 - 64000: loss 0.058 time 32887.13
+2024-10-20 08:01:41,198 - 65000: loss 0.048 time 33402.90
+2024-10-20 08:10:12,119 - 66000: loss 0.056 time 33913.82
+2024-10-20 08:18:51,083 - 67000: loss 0.059 time 34432.79
+2024-10-20 08:27:22,829 - 68000: loss 0.056 time 34944.53
+2024-10-20 08:35:54,650 - 69000: loss 0.051 time 35456.36
+2024-10-20 08:44:29,197 - 70000: loss 0.059 time 35970.90
