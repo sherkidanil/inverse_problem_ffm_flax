@@ -61,7 +61,7 @@ e = jnp.load(f'{datedir}/e.npy')
 class MLP(nn.Module):
     dim: int
     out_dim: int = 1
-    w: int = 128
+    w: int = 512
 
     @nn.compact
     def __call__(self, x):
@@ -83,7 +83,8 @@ def predict(params, inputs):
 def sample_conditional_pt(x0, x1, t, sigma):
     t = t.reshape(-1, *([1] * (x0.ndim - 1)))
     mu_t = t * x1 + (1 - t) * x0
-    epsilon = jax.random.normal(jax.random.PRNGKey(0), x0.shape)
+    # epsilon = jax.random.normal(jax.random.PRNGKey(0), x0.shape)
+    epsilon = 0
     return mu_t + sigma * epsilon
 
 @jax.jit
@@ -106,8 +107,8 @@ def update_model(state, grads):
 
 
 key = jax.random.PRNGKey(0)
-batch_size = 512
-num_epochs = 20_000
+batch_size = 128
+num_epochs = 200_000
 learning_rate = 0.001
 optimizer = optax.adamw(learning_rate=learning_rate)
 params = model.init(key, jnp.ones((1, 19)))
@@ -206,7 +207,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set(style="whitegrid")
 
-df = pd.DataFrame(sols, columns = [fr'$\beta_1$', fr'$\alpha', fr'$\gamma^r$', fr'$\gamma^d_1$', fr'$\beta_2$', fr'$\gamma^d_2$'])
+df = pd.DataFrame(sols, columns = [fr'$\beta_1$', fr'$\alpha$', fr'$\gamma^r$', fr'$\gamma^d_1$', fr'$\beta_2$', fr'$\gamma^d_2$'])
 
 plt.figure(dpi=300, figsize=(12,6))
 sns.kdeplot(df, fill=True, alpha=0.5, common_norm=True)

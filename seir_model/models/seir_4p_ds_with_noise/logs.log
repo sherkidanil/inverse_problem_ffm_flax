@@ -1,0 +1,34 @@
+2024-10-20 18:57:05,487 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-20 18:57:05,489 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-20 18:57:05,505 - gpu
+2024-10-20 19:28:19,452 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-20 19:28:19,455 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-20 19:28:19,472 - gpu
+2024-10-20 19:28:42,742 - 1000: loss 0.116 time 16.05
+2024-10-20 19:28:52,769 - 2000: loss 0.108 time 26.07
+2024-10-20 19:29:02,596 - 3000: loss 0.099 time 35.90
+2024-10-20 19:29:12,591 - 4000: loss 0.094 time 45.90
+2024-10-20 19:29:22,557 - 5000: loss 0.107 time 55.86
+2024-10-20 19:29:32,483 - 6000: loss 0.096 time 65.79
+2024-10-20 19:29:42,349 - 7000: loss 0.092 time 75.65
+2024-10-20 19:29:52,308 - 8000: loss 0.085 time 85.61
+2024-10-20 19:30:02,231 - 9000: loss 0.080 time 95.54
+2024-10-20 19:30:11,899 - 10000: loss 0.077 time 105.20
+2024-10-20 19:30:21,963 - 11000: loss 0.074 time 115.27
+2024-10-20 19:30:31,941 - 12000: loss 0.073 time 125.25
+2024-10-20 19:30:41,828 - 13000: loss 0.073 time 135.13
+2024-10-20 19:30:51,685 - 14000: loss 0.073 time 144.99
+2024-10-20 19:31:01,455 - 15000: loss 0.071 time 154.76
+2024-10-20 19:31:11,462 - 16000: loss 0.068 time 164.77
+2024-10-20 19:31:21,052 - 17000: loss 0.072 time 174.36
+2024-10-20 19:31:30,938 - 18000: loss 0.067 time 184.24
+2024-10-20 19:31:40,749 - 19000: loss 0.066 time 194.05
+2024-10-20 19:31:50,407 - 20000: loss 0.064 time 203.71
+2024-10-20 19:31:51,132 - m_pred = [-0.97433318  2.99941583 -1.54047838  0.43954964  0.50410705  0.30673221]
+2024-10-20 19:31:51,133 - d = [[ 1.4814678  10.1681795  21.746716   24.874071    0.05899492  0.54789436
+   4.5900397  14.810197  ]]
+2024-10-20 19:31:51,134 - d_pred = [-0.02810525 -0.00128095 -0.00996567 -0.01155778 -0.00804025 -0.00492554
+ -0.00329577 -0.00563877]
+2024-10-20 19:31:51,134 - diff norm = 1.0004597902297974, 0.000262226
+2024-10-20 19:32:53,360 - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-20 19:32:53,360 - NumExpr defaulting to 8 threads.
