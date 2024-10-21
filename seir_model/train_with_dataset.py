@@ -14,6 +14,29 @@ from scipy.integrate import solve_ivp
 
 from typing import List
 
+import wandb
+
+wandb.init(
+    # set the wandb project where this run will be logged
+    project="inv_pr_fm",
+
+    # track hyperparameters and run metadata
+    config={
+    "dataset_size": 1_000_000,
+    "learning_rate": 0.001,
+    "architecture": "MLP",
+    "optimizer": "adamw",
+    "epochs": 2_000_000,
+    "batch_size": 4096,
+    "savedir": "models/seir_4p_ds_without_noise_20k_64w_128b_1e5ds_size1e5_new_min",
+    "w": 128, 
+    "subkey_in_loss": True
+    }
+)
+
+config = wandb.config
+
+
 def d_by_m_e(m: List[int], e: List[int]):
     beta1, alpha, gamma_r, gamma_d1, beta2, gamma_d2 = m
     tau = 2.1
@@ -42,7 +65,8 @@ def d_by_m_e(m: List[int], e: List[int]):
     return solution.y[2:]
 
 
-savedir = "models/seir_4p_ds_without_noise_1kk_64"
+# savedir = "models/seir_4p_ds_without_noise_20k_64w_128b_1e5ds_size1e5"
+savedir = config["savedir"]
 datedir = "data/seir_data"
 
 os.makedirs(savedir, exist_ok=True)
@@ -53,15 +77,18 @@ logging.info(jax.default_backend())
 
 
 # 1. Generation
-m = jnp.load(f'{datedir}/m.npy')
-d = jnp.load(f'{datedir}/d.npy')
-e = jnp.load(f'{datedir}/e.npy')
+SIZE = config["dataset_size"]
+m = jnp.load(f'{datedir}/m.npy')[:SIZE]
+d = jnp.load(f'{datedir}/d.npy')[:SIZE]
+e = jnp.load(f'{datedir}/e.npy')[:SIZE]
+
+
 
 # 2. Train
 class MLP(nn.Module):
     dim: int
     out_dim: int = 1
-    w: int = 64
+    w: int = config["w"]
 
     @nn.compact
     def __call__(self, x):
@@ -93,7 +120,8 @@ def compute_conditional_vector_field(x0, x1):
 
 @jax.jit
 def loss_ffm_function(params, x1, x0, d, e, key):
-    t = jax.random.uniform(key, (x0.shape[0],))
+    key, subkey = jax.random.split(key)
+    t = jax.random.uniform(subkey, (x0.shape[0],))
     xt = sample_conditional_pt(x0, x1, t, sigma=0.01)
     ut = compute_conditional_vector_field(x0, x1)
     inputs = jnp.concatenate([xt, d, e, t[:, None]], axis=-1)
@@ -107,9 +135,9 @@ def update_model(state, grads):
 
 
 key = jax.random.PRNGKey(0)
-batch_size = 128
-num_epochs = 1_000_000
-learning_rate = 0.001
+batch_size = config["batch_size"]
+num_epochs = config["epochs"]
+learning_rate = config["learning_rate"]
 optimizer = optax.adamw(learning_rate=learning_rate)
 params = model.init(key, jnp.ones((1, 19)))
 state = train_state.TrainState.create(
@@ -138,6 +166,7 @@ for k in tqdm(range(num_epochs)):
     loss, grads = jax.value_and_grad(loss_ffm_function, has_aux=False)(state.params, x1, x0, d, e, subkey)
     state = update_model(state, grads)
     losses.append(loss.item())
+    wandb.log({"loss": loss.item()})
 
     if (k+1) % 1000 == 0:
         end = time.time()
@@ -219,3 +248,8 @@ plt.show()
 
 print(np.mean(errors), np.std(errors))
 logging.info(f'{np.mean(errors)}, {np.std(errors)}')
+
+wandb.summary['mean_d_err_1k'] = np.mean(errors)
+wandb.summary['std_d_err_1k'] = np.std(errors)
+
+wandb.finish()
