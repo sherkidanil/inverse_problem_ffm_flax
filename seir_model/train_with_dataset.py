@@ -42,7 +42,7 @@ def d_by_m_e(m: List[int], e: List[int]):
     return solution.y[2:]
 
 
-savedir = "models/seir_4p_ds_without_noise_2kk"
+savedir = "models/seir_4p_ds_without_noise_1kk_64"
 datedir = "data/seir_data"
 
 os.makedirs(savedir, exist_ok=True)
@@ -61,7 +61,7 @@ e = jnp.load(f'{datedir}/e.npy')
 class MLP(nn.Module):
     dim: int
     out_dim: int = 1
-    w: int = 512
+    w: int = 64
 
     @nn.compact
     def __call__(self, x):
@@ -83,8 +83,8 @@ def predict(params, inputs):
 def sample_conditional_pt(x0, x1, t, sigma):
     t = t.reshape(-1, *([1] * (x0.ndim - 1)))
     mu_t = t * x1 + (1 - t) * x0
-    epsilon = jax.random.normal(key, x0.shape)
-    # epsilon = 0
+    # epsilon = jax.random.normal(key, x0.shape)
+    epsilon = 0
     return mu_t + sigma * epsilon
 
 @jax.jit
@@ -108,9 +108,9 @@ def update_model(state, grads):
 
 key = jax.random.PRNGKey(0)
 batch_size = 128
-num_epochs = 3_000_000
+num_epochs = 1_000_000
 learning_rate = 0.001
-optimizer = optax.lion(learning_rate=learning_rate)
+optimizer = optax.adamw(learning_rate=learning_rate)
 params = model.init(key, jnp.ones((1, 19)))
 state = train_state.TrainState.create(
     apply_fn=model.apply,
