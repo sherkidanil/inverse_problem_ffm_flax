@@ -28,7 +28,7 @@ wandb.init(
     "optimizer": "adamw",
     "epochs": 2_000_000,
     "batch_size": 4096,
-    "savedir": "models/seir_4p_ds_without_noise_20k_64w_128b_1e5ds_size1e5_new_min",
+    "savedir": "models/seir_4p_ds_without_noise_20k_64w_128b_1e5ds_size1e5_new",
     "w": 128, 
     "subkey_in_loss": True
     }
@@ -150,7 +150,7 @@ state = train_state.TrainState.create(
 dataset = jnp.concatenate([m, e, d], axis = 1)
 loader = jax.random.permutation(key, dataset)
 
-losses = []
+losses = [np.inf]
 
 start = time.time()
 for k in tqdm(range(num_epochs)):
@@ -165,13 +165,15 @@ for k in tqdm(range(num_epochs)):
 
     loss, grads = jax.value_and_grad(loss_ffm_function, has_aux=False)(state.params, x1, x0, d, e, subkey)
     state = update_model(state, grads)
+    if loss.item() < np.min(losses):
+        with open(f'{savedir}/w_best.pkl', 'wb') as f:
+            pickle.dump(state.params, f)
     losses.append(loss.item())
     wandb.log({"loss": loss.item()})
 
     if (k+1) % 1000 == 0:
         end = time.time()
         logging.info(f"{k+1}: loss {loss:0.3f} time {(end - start):0.2f}")
-
 
 # 3. Saving
 np.save(f"{savedir}/losses.npy", np.array(losses))
