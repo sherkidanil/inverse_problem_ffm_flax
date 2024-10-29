@@ -1,3 +1,6 @@
 *.npy
 wandb/
 seir_model/wandb/
+
+diffusion_problem/data/point3_100k/*
+

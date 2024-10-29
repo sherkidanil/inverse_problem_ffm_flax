@@ -28,8 +28,8 @@ for i in tqdm(range(SIZE)):
     m = np.random.normal(size = 16)
     e = np.random.uniform(size = 2)
     log_kappa = kl.expansion(m)
-    u = pde_solution(log_kappa, e)
-    np.save(f'{soldir}/solution_{i}.npy', np.stack(log_kappa, u))
+    u = pde_solution(log_kappa, e, verbose=False)
+    np.save(f'{soldir}/solution_{i}.npy', np.stack([log_kappa, u]))
     d = get_d_from_u(u, points)
     m_arr[i] = m
     e_arr[i] = e
