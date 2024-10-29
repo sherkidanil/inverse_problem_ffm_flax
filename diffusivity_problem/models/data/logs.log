@@ -1,0 +1,55 @@
+2024-10-29 12:30:41,751 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 12:30:41,754 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 12:30:41,770 - gpu
+2024-10-29 12:33:13,803 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 12:33:13,804 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 12:33:13,819 - gpu
+2024-10-29 12:54:09,432 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 12:54:09,434 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 12:54:09,455 - gpu
+2024-10-29 12:58:14,060 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 12:58:14,062 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 12:58:14,081 - gpu
+2024-10-29 13:02:20,524 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:02:20,525 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:02:20,544 - gpu
+2024-10-29 13:05:43,052 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:05:43,054 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:05:43,073 - gpu
+2024-10-29 13:10:11,239 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:10:11,242 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:10:11,261 - gpu
+2024-10-29 13:14:20,130 - 1000: loss 1.296 time 245.10
+2024-10-29 13:18:12,190 - 2000: loss 1.294 time 232.06
+2024-10-29 13:18:16,634 - m = [-0.1162438039093474, -0.27217071069581256, -0.4457072747946415, -1.1625038576402291, -0.8685727412371855, 0.5418045754052415, 0.4031600599568112, -0.38889434537612483, -2.426588369417653, -1.2042731391704373, -1.1961172386668326, -0.298431608859754, 0.40561621293084205, 0.44826571696563144, 2.285137857326606, -0.31507353298470164]
+2024-10-29 13:44:26,275 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:44:26,277 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:44:26,296 - gpu
+2024-10-29 13:44:44,258 - m = [-0.46461505616529175, 0.23154634081417497, 1.843646197460136, 0.6973470145695521, -0.9528575683076624, 0.24155238510135757, -1.507220469617137, -0.5313510992482722, 0.005535974730647838, -0.3871397756861629, 0.807390604349562, -0.904296718254336, -0.20632455229092272, 0.9253207390340421, -0.49787849531478023, 1.0182300365348862]
+2024-10-29 13:46:43,274 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:46:43,276 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:46:43,295 - gpu
+2024-10-29 13:47:01,094 - m = [-0.7529979007002191, -0.1840132442032445, -0.28254608081230015, 0.6851358041265854, 0.09507224318141126, -1.2303396061383582, -0.5755992435543789, 0.3808911036019548, 0.03771493953122749, 0.4486662602938295, -0.07339140640550039, 1.2374772275278456, 0.7282309899159661, -1.6196828003591148, 0.1960528590958276, 1.5647080430593086]
+2024-10-29 13:48:01,182 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:48:01,183 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:48:01,203 - gpu
+2024-10-29 13:48:19,018 - m = [-1.9280910144395076, 0.1513037056989339, -0.928054374279809, 0.9374192015555023, -0.17908931969650302, -1.768703958055117, -0.5603461940738806, 0.29006762044288165, -0.8449592049305338, 0.38634881888561273, 0.24288431432509028, 0.5701128032616626, 0.9205389251407048, 0.8095928805290845, 0.7733069830506832, 0.7075777945504363]
+2024-10-29 13:49:10,598 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:49:10,600 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:49:10,619 - gpu
+2024-10-29 13:49:29,732 - m = [0.5557617041505104, -1.4172027851011306, -1.1102652070093388, -0.3399444692479925, -0.00971347645233261, -0.896515554841242, 0.047897901913091095, 0.8953119740622839, 0.3540457178278427, -0.880065514955582, -0.9319785508207462, 0.2524925011896411, -1.2426346646021391, 0.19920000605335259, -0.8121362310773594, -1.16841023222069]
+2024-10-29 13:52:52,578 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 13:52:52,580 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 13:52:52,599 - gpu
+2024-10-29 13:53:10,463 - m = [0.9219217217254848, -1.322139810672059, -0.1445459568988947, 0.2800729606084747, -2.394065568934186, -1.4999654897637382, -0.077393341043473, -0.9490878028381167, 1.3451609174272812, 0.9580974711224935, -0.3809682355673613, -0.616049551390232, -0.8271371852241326, 0.19939093774448205, 1.0906143001696207, -1.377082247431046]
+2024-10-29 14:02:37,007 - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-29 14:02:37,007 - NumExpr defaulting to 8 threads.
+2024-10-29 14:23:16,482 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-10-29 14:23:16,484 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-10-29 14:23:16,503 - gpu
+2024-10-29 14:27:19,977 - 1000: loss 1.296 time 239.69
+2024-10-29 14:31:08,492 - 2000: loss 1.294 time 228.51
+2024-10-29 14:31:12,312 - m = [-1.480967231345618, -0.33878508320673406, 0.028997809386520385, 0.5435400655995831, -0.8617609614441784, 0.33638785994439613, 0.9392865295997234, 0.40904224239691866, -0.6779917421998631, -0.7356980560739619, -0.7254397044022988, -1.728058359237152, -1.0474245345992916, 0.8551952164781693, 0.34759195060760806, -2.2047490934361704]
+2024-10-29 14:38:26,145 - 0.01524385903030634, 0.009695581160485744
+2024-10-29 14:38:26,268 - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-10-29 14:38:26,268 - NumExpr defaulting to 8 threads.

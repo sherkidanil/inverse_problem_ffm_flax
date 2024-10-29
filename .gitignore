@@ -4,3 +4,7 @@ seir_model/wandb/
 
 diffusion_problem/data/point3_100k/*
 
+
+diffusion_problem/wandb/*
+
+*/wandb/
