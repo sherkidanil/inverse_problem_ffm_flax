@@ -25,24 +25,26 @@ wandb.init(
 
     # track hyperparameters and run metadata
     config={
+    "name": 'd_5points',
     "dataset_size": 100_000,
-    "learning_rate": 0.001,
+    "learning_rate": 3e-4,
     "architecture": "MLP",
     "optimizer": "adamw",
-    "epochs": 20_000,
+    "epochs": 200_000,
     "batch_size": 4096,
-
-    "savedir": "models/epoch20k",
+    "savedir": "models/epoch200k_new_dist_2try",
     "w": 128, 
-    "subkey_in_loss": True
+    "subkey_in_loss": True,
+    "points": [(50, 48), (32, 25), (10, 48)]
     }
 )
 
 config = wandb.config
 
-
 savedir = config["savedir"]
 datadir = "data/point3_100k"
+
+points = config["points"]
 
 os.makedirs(savedir, exist_ok=True)
 
@@ -54,9 +56,8 @@ logging.info(jax.default_backend())
 # 1. Generation
 SIZE = config["dataset_size"]
 m = jnp.load(f'{datadir}/m.npy')[:SIZE]
-d = jnp.load(f'{datadir}/d.npy')[:SIZE]
+d = jnp.load(f'{datadir}/d_5048_3225_1048.npy')[:SIZE]
 e = jnp.load(f'{datadir}/e.npy')[:SIZE]
-
 
 
 # 2. Train
@@ -122,7 +123,6 @@ state = train_state.TrainState.create(
     tx=optimizer
 )
 
-m, e, d = np.load(f'{datadir}/m.npy'), np.load(f'{datadir}/e.npy'), np.load(f'{datadir}/d.npy')
 dataset = jnp.concatenate([m, e, d], axis = 1)
 
 def get_batches(dataset, batch_size, key):
@@ -145,14 +145,15 @@ for epoch in tqdm(range(num_epochs)):
         e = batch[:, 16:18]
 
         subkey, batch_key = jax.random.split(subkey)
-        x0 = jax.random.normal(batch_key, (batch.shape[0], 16)) 
+        x0 = jax.random.uniform(batch_key, (batch.shape[0], 16)) 
 
         loss, grads = jax.value_and_grad(loss_ffm_function, has_aux=False)(state.params, x1, x0, d, e, batch_key)
         state = update_model(state, grads)
         losses_per_epoch.append(loss.item())
+        wandb.log({"loss_in_epoch": loss.item()})
 
     epoch_avg_loss = np.mean(losses_per_epoch)
-    wandb.log({"loss_in_epoch": epoch_avg_loss})
+        
 
     if epoch_avg_loss < np.min(losses):
         with open(f'{savedir}/w_best.pkl', 'wb') as f:
@@ -182,7 +183,6 @@ def ode_function(t, m, d, e):
 
 kl = KLExpansion(grid=(64, 64))
 kl.calculate_eigh()
-points = [(10, 10), (40, 40), (50, 10)]
 
 m = np.random.normal(size = 16)
 log_kappa = kl.expansion(m)
@@ -193,11 +193,11 @@ errors = []
 sols = []
 
 for i in tqdm(range(1_000)):
-    m0 = np.random.normal(size = 16)
+    subkey, batch_key = jax.random.split(subkey)
+    m0 = jax.random.uniform(batch_key, (1, 16)) 
     e = np.array([0.2, 0.9])
     u = pde_solution(log_kappa, (e[0], e[1]), verbose=False)
     d = get_d_from_u(u, points)
-    m0 = jnp.array(m0).reshape(1,-1)
     m = jnp.array(m).reshape(1,-1)
     e = jnp.array(e).reshape(1,-1)
     d = jnp.array(d).reshape(1,-1)
@@ -207,7 +207,9 @@ for i in tqdm(range(1_000)):
     d_pred = get_d_from_u(u, points)
     sols.append(solution.y[:, -1])
     try:
-        errors.append(np.linalg.norm(d - d_pred) / np.linalg.norm(d))
+        error = np.linalg.norm(d - d_pred) / np.linalg.norm(d)
+        errors.append(error)
+        wandb.log({'inference_error': error})
     except ValueError:
         pass
 
@@ -219,6 +221,10 @@ wandb.summary['mean_d_err_1k'] = np.mean(errors)
 wandb.summary['std_d_err_1k'] = np.std(errors)
 
 wandb.finish()
+
+np.save(f'{savedir}/m.npy', m)
+np.save(f'{savedir}/m_avg.npy', np.mean(sols, axis=0))
+np.save(f'{savedir}/sols.npy', np.array(sols))
 
 import pandas as pd
 import seaborn as sns
