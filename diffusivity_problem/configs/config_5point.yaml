@@ -1,0 +1,21 @@
+name: d_5points
+cuda: 0
+dataset_size: 100000
+learning_rate: 0.003
+architecture: MLP
+optimizer: adamw
+epochs: 200
+batch_size: 65536
+savedir: models/point5_try1
+w: 128
+subkey_in_loss: true
+
+points:
+  - [16, 16]
+  - [16, 48]
+  - [32, 32]
+  - [48, 16]
+  - [48, 48]
+
+d_name: d_5points
+inference_num: 100

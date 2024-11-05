@@ -54,9 +54,8 @@ logging.info(jax.default_backend())
 # 1. Generation
 SIZE = config["dataset_size"]
 m = jnp.load(f'{datadir}/m.npy')[:SIZE]
-d = jnp.load(f'{datadir}/{config['d_name']}.npy')[:SIZE]
+d = jnp.load(f'{datadir}/{config["d_name"]}.npy')[:SIZE]
 e = jnp.load(f'{datadir}/e.npy')[:SIZE]
-
 
 # 2. Train
 class MLP(nn.Module):
@@ -74,8 +73,13 @@ class MLP(nn.Module):
         x = nn.selu(x)
         x = nn.Dense(self.out_dim)(x)
         return x
-    
-model = MLP(dim=22, out_dim=16)
+
+shapes = {'m': m.shape[1],
+         'e': e.shape[1],
+         'd': d.shape[1]}
+dim_shape = shapes['m'] + shapes['e'] + shapes['d']
+
+model = MLP(dim=dim_shape, out_dim=shapes['m'])
 
 @jax.jit
 def predict(params, inputs):
@@ -114,7 +118,7 @@ batch_size = config["batch_size"]
 num_epochs = config["epochs"]
 learning_rate = config["learning_rate"]
 optimizer = optax.adamw(learning_rate=learning_rate)
-params = model.init(key, jnp.ones((1, 22)))
+params = model.init(key, jnp.ones((1, dim_shape+1)))
 state = train_state.TrainState.create(
     apply_fn=model.apply,
     params=params["params"],
@@ -138,12 +142,12 @@ for epoch in tqdm(range(num_epochs)):
     losses_per_epoch = []
 
     for batch in get_batches(dataset, batch_size, subkey):
-        x1 = batch[:, :16]
-        d = batch[:, 18:]
-        e = batch[:, 16:18]
+        x1 = batch[:, :shapes['m']]
+        d = batch[:, (shapes['m']+shapes['e']):]
+        e = batch[:, shapes['m']:(shapes['m']+shapes['e'])]
 
         subkey, batch_key = jax.random.split(subkey)
-        x0 = jax.random.uniform(batch_key, (batch.shape[0], 16)) 
+        x0 = jax.random.uniform(batch_key, (batch.shape[0], shapes['m'])) 
 
         loss, grads = jax.value_and_grad(loss_ffm_function, has_aux=False)(state.params, x1, x0, d, e, batch_key)
         state = update_model(state, grads)
@@ -182,17 +186,18 @@ def ode_function(t, m, d, e):
 kl = KLExpansion(grid=(64, 64))
 kl.calculate_eigh()
 
-m = np.random.normal(size = 16)
+m = np.random.normal(size = shapes['m'])
 log_kappa = kl.expansion(m)
+
 print(m)
 logging.info(f'm = {list(m)}')
 
 errors = []
 sols = []
 
-for i in tqdm(range(1_000)):
+for i in tqdm(range(config["inference_num"])):
     subkey, batch_key = jax.random.split(subkey)
-    m0 = jax.random.uniform(batch_key, (1, 16)) 
+    m0 = jax.random.uniform(batch_key, (1, shapes['m'])) 
     e = np.array([0.2, 0.9])
     u = pde_solution(log_kappa, (e[0], e[1]), verbose=False)
     d = get_d_from_u(u, points)
@@ -229,7 +234,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set(style="whitegrid")
 
-df = pd.DataFrame(sols, columns = [f'param_{i}' for i in range(16)])
+df = pd.DataFrame(sols, columns = [f'param_{i}' for i in range(shapes['m'])])
 
 plt.figure(dpi=300, figsize=(12,6))
 sns.kdeplot(df, fill=True, alpha=0.5, common_norm=True)
@@ -237,4 +242,31 @@ plt.title(fr'Joint probability distribution $\rho(m|d,e)$', fontsize=16, fontwei
 plt.xlabel('Parameter value')
 # plt.xlim(0,1)
 plt.savefig(f'{savedir}/pde_params.png')
+plt.show()
+
+log_kappa = kl.expansion(m[0])
+u = pde_solution(log_kappa, e[0], verbose=False)
+log_kappa_pred = kl.expansion(np.mean(sols, axis=0))
+u_pred = pde_solution(log_kappa_pred, e[0], verbose=False)
+
+plt.figure(figsize=(12, 8), dpi=200)
+plt.subplot(221)
+plt.contourf(kl.X_mesh*64, kl.Y_mesh*64, log_kappa.T, levels=50, cmap='viridis')
+plt.colorbar()
+plt.title(fr'$\log \kappa$ true')
+plt.subplot(222)
+plt.contourf(kl.X_mesh*64, kl.Y_mesh*64, u.T, levels=50, cmap='viridis')
+plt.colorbar(label='u(x,y)')
+plt.scatter([x[1] for x in points],[x[0] for x in points], color='r', marker='*')
+plt.title(fr'Solution of $-\nabla \cdot (\kappa \nabla u) = 0$')
+plt.subplot(223)
+plt.contourf(kl.X_mesh*64, kl.Y_mesh*64, log_kappa_pred.T, levels=50, cmap='viridis')
+plt.colorbar()
+plt.title(fr'$\log \kappa$ pred')
+plt.subplot(224)
+plt.contourf(kl.X_mesh*64, kl.Y_mesh*64, u_pred.T, levels=50, cmap='viridis')
+plt.colorbar(label='u(x,y)')
+plt.scatter([x[1] for x in points],[x[0] for x in points], color='r', marker='*')
+plt.title(fr'Solution of $-\nabla \cdot (\kappa \nabla u) = 0$')
+plt.savefig(f'{savedir}/avg_pred_t.png')
 plt.show()

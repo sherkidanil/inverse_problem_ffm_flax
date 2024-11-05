@@ -1,0 +1,23 @@
+2024-11-05 14:29:24,018 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-11-05 14:29:24,020 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-11-05 14:29:24,038 - gpu
+2024-11-05 14:34:42,772 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-11-05 14:34:42,774 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-11-05 14:34:42,794 - gpu
+2024-11-05 14:35:51,549 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-11-05 14:35:51,551 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-11-05 14:35:51,569 - gpu
+2024-11-05 14:36:53,162 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-11-05 14:36:53,164 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-11-05 14:36:53,181 - gpu
+2024-11-05 14:37:17,010 - m = [1.320690168198002, 1.7130135142736238, 1.63082762133937, 0.04447753768131862, -0.7039294741742032, 1.5164402682296725, 0.4082488234989072, -0.8764978493317008, 0.061397295261520324, -0.6526408431267008, -1.562816696439974, -1.0057256060013993, -0.3284499603407298, 0.8077731503489614, -1.25355506160572, -0.9909541423836716]
+2024-11-05 14:37:20,326 - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-05 14:37:20,326 - NumExpr defaulting to 8 threads.
+2024-11-05 14:38:08,515 - 0.0716974064707756, 0.03095952793955803
+2024-11-05 14:39:38,401 - Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+2024-11-05 14:39:38,403 - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2024-11-05 14:39:38,421 - gpu
+2024-11-05 14:40:01,463 - m = [-0.7488212691503112, -0.15645048400210118, -1.1547886884321483, -1.3508014453943622, -0.20189554289518216, 0.48538777401351424, -0.2159007246337895, -0.17853229959540984, -1.0668079949960074, 1.4870685077235908, -0.343859820374192, 0.06972472441215691, -1.598040671847203, -0.15149133490929054, 1.2156697023577685, -0.23106789639749542]
+2024-11-05 14:40:04,739 - Note: NumExpr detected 40 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2024-11-05 14:40:04,740 - NumExpr defaulting to 8 threads.
+2024-11-05 14:40:44,920 - 0.07549683004617691, 0.03252643346786499
