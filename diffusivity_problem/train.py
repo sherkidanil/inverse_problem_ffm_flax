@@ -1,4 +1,16 @@
 import os
+import argparse
+import yaml
+
+parser = argparse.ArgumentParser(description='Train the flax pde model')
+parser.add_argument('-c', '--config', type=str, help='Path to configuration file', required=True)
+args = parser.parse_args()
+
+with open(args.config, 'r') as f:
+    config = yaml.safe_load(f)
+    
+os.environ["CUDA_VISIBLE_DEVICES"] = str(config['cuda'])
+
 import time
 import numpy as np
 from tqdm import tqdm
@@ -19,27 +31,14 @@ from solver import pde_solution
 from kl_extension import KLExpansion
 from utils import get_d_from_u
 
+
 wandb.init(
     # set the wandb project where this run will be logged
     project="inv_pr_fm_pde",
 
     # track hyperparameters and run metadata
-    config={
-    "name": 'd_5points',
-    "dataset_size": 100_000,
-    "learning_rate": 3e-4,
-    "architecture": "MLP",
-    "optimizer": "adamw",
-    "epochs": 200_000,
-    "batch_size": 4096,
-    "savedir": "models/epoch200k_new_dist_2try",
-    "w": 128, 
-    "subkey_in_loss": True,
-    "points": [(50, 48), (32, 25), (10, 48)]
-    }
+    config=config
 )
-
-config = wandb.config
 
 savedir = config["savedir"]
 datadir = "data/point3_100k"
@@ -52,11 +51,10 @@ import logging
 logging.basicConfig(filename=f'{savedir}/logs.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 logging.info(jax.default_backend())
 
-
 # 1. Generation
 SIZE = config["dataset_size"]
 m = jnp.load(f'{datadir}/m.npy')[:SIZE]
-d = jnp.load(f'{datadir}/d_5048_3225_1048.npy')[:SIZE]
+d = jnp.load(f'{datadir}/{config['d_name']}.npy')[:SIZE]
 e = jnp.load(f'{datadir}/e.npy')[:SIZE]
 
 

@@ -1,0 +1,17 @@
+name: d_5points
+cuda: 0
+dataset_size: 100000
+learning_rate: 0.003
+architecture: MLP
+optimizer: adamw
+epochs: 20000
+batch_size: 4096
+savedir: models/epoch200k_new_dist_3try_exp
+w: 64
+subkey_in_loss: true
+points:
+  - [50, 48]
+  - [32, 25]
+  - [10, 48]
+
+d_name: d_5048_3225_1048
