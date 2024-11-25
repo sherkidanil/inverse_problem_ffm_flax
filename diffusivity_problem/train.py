@@ -59,7 +59,6 @@ e = jnp.load(f'{datadir}/e.npy')[:SIZE]
 
 # 2. Train
 class MLP(nn.Module):
-    dim: int
     out_dim: int = 1
     w: int = config["w"]
 
@@ -79,7 +78,7 @@ shapes = {'m': m.shape[1],
          'd': d.shape[1]}
 dim_shape = shapes['m'] + shapes['e'] + shapes['d']
 
-model = MLP(dim=dim_shape, out_dim=shapes['m'])
+model = MLP(out_dim=shapes['m'])
 
 @jax.jit
 def predict(params, inputs):

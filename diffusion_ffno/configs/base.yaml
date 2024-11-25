@@ -1,0 +1,21 @@
+cuda: 2
+
+size: 1_000
+
+features: data/try1/solutions_100k.npy
+targets: data/try1/fields_100k.npy
+
+out_folder: exp1
+
+D: 2
+lr: 0.0001
+n_proc: 32
+frac_train: 0.7
+N_run: 1000
+N_batch: 128
+N_layers: 4
+N_modes: 16
+gamma: 0.5
+scale: 0.01
+po: 2.0
+N: 3

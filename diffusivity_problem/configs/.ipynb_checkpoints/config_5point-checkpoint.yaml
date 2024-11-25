@@ -4,9 +4,9 @@ dataset_size: 100000
 learning_rate: 0.003
 architecture: MLP
 optimizer: adamw
-epochs: 200
+epochs: 2000000
 batch_size: 65536
-savedir: models/point5_try1
+savedir: models/point5_try2_2kk
 w: 128
 subkey_in_loss: true
 
